@@ -15,14 +15,17 @@ null = None
 false = False
 true = True
 
-with open('data.json') as json_data:
+with open('data.json', encoding="utf8") as json_data:
     trabalhos = json.load(json_data)
 
-with open('data2.json') as json_data2:
+with open('data2.json', encoding="utf8") as json_data2:
     modulos = json.load(json_data2)
 
-with open('data3.json') as json_data3:
+with open('data3.json', encoding="utf8") as json_data3:
     so_modulos = json.load(json_data3)
+
+with open('avaliadores.json', encoding="utf8") as json_avaliadores:
+    avaliadores = json.load(json_avaliadores)
 
 # Aqui eu me distanciei um pouco da documentação; nela, não está claro como as avaliações
 # dos trabalhos estão separadas. Por conta disso, tomei a liberdade de fazer uma lista.
@@ -174,6 +177,22 @@ def get_trabalhos_modulo():
         abort(404)
 
     return jsonify({'trabalhos': trabalho})
+
+#POST login do avaliador
+@app.route('/jai/avaliacaoRest/login', methods=['POST'])
+def post_login():
+    print(request)
+    login = request.json['login']
+    password = request.json['password']
+    response = {'success': false, 'erro': 'Login inválido.'}
+    for avaliador in avaliadores['avaliadores']:
+        if avaliador['login'] == login:
+            if avaliador['senha'] == password:
+                response = {'success': true, 'nome': avaliador['nome']}
+            else:
+                response = {'success': false, 'erro': 'Senha inválida.'}
+            break
+    return jsonify(response)
 
 if __name__ == '__main__':
     app.run(debug=True)

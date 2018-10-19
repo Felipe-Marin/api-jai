@@ -1,0 +1,19 @@
+{
+    "avaliadores": [
+        {
+            "nome": "Avaliador1",
+            "login": "avaliador1",
+            "senha": "123"
+        },
+        {
+            "nome": "Avaliador2",
+            "login": "avaliador2",
+            "senha": "321"
+        },
+        {
+            "nome": "Avaliador3",
+            "login": "avaliador3",
+            "senha": "456"
+        }
+    ]
+}
